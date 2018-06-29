@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.alnehal.chiniotestimator">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name="utilis.MySingleton"
+        android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".SplashScreen"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ItemsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoNotificationBar" />
+        <activity
+            android:name=".CartActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoNotificationBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".CategoriesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoNotificationBar" />
+        <activity
+            android:name=".SubCategoriesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoNotificationBar" />
+        <activity
+            android:name=".CategoriesGridMenu"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoNotificationBar" />
+
+        <!--
+     ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".LogInActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <activity
+            android:name=".ChiniotPackage.ChiniotPackageActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".HomeActivity"
+            android:screenOrientation="portrait"
+
+            />
+        <activity
+            android:name=".ChiniotPackage.ChiniotCartActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ChiniotPackage.ChiniotPackageActivity"
+            android:screenOrientation="portrait"
+
+            />
+        <activity
+            android:name=".ChiniotPackage.ChiniotExtraItemsActivity"
+            android:screenOrientation="portrait"
+
+            ></activity>
+    </application>
+
+</manifest>

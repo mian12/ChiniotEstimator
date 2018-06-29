@@ -1,0 +1,36 @@
+<resources>
+    <!-- Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
+    <dimen name="activity_horizontal_margin">64dp</dimen>
+
+    <dimen name="sp10">13sp</dimen>
+    <dimen name="sp12">15sp</dimen>
+    <dimen name="sp14">17sp</dimen>
+    <dimen name="sp16">20sp</dimen>
+    <dimen name="sp18">22sp</dimen>
+    <dimen name="sp20">24sp</dimen>
+
+    <dimen name="dp2">3dp</dimen>
+    <dimen name="dp5">7dp</dimen>
+    <dimen name="dp8">10dp</dimen>
+    <dimen name="dp10">13dp</dimen>
+    <dimen name="dp12">15dp</dimen>
+    <dimen name="dp14">17dp</dimen>
+    <dimen name="dp16">20dp</dimen>
+    <dimen name="dp18">22dp</dimen>
+    <dimen name="dp20">24dp</dimen>
+    <dimen name="dp30">40dp</dimen>
+    <dimen name="dp40">52dp</dimen>
+    <dimen name="dp60">80dp</dimen>
+    <dimen name="dp80">100dp</dimen>
+    <dimen name="dp120">150dp</dimen>
+    <dimen name="dp140">180dp</dimen>
+    <dimen name="dp150">225dp</dimen>
+    <dimen name="dp350">477dp</dimen>
+    <dimen name="dp240">300dp</dimen>
+    <dimen name="dp160">200dp</dimen>
+
+    <integer name="dp5">8</integer>
+
+</resources>

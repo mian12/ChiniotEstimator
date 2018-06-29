@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/packge_bg"
+
+    tools:context="com.alnehal.chiniotestimator.HomeActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp" android:gravity="center"
+        android:layout_marginTop="@dimen/dp30"
+        android:layout_weight="2">
+        <ImageView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_weight="8">
+
+
+        <ImageView
+            android:id="@+id/buttonPackage1"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/package_selector"
+            android:layout_marginBottom="@dimen/dp30"
+          />
+        <ImageView
+            android:id="@+id/buttonEstimated1"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp30"
+
+            android:src="@drawable/estimate_selector"/>
+
+        <ImageView
+            android:id="@+id/buttonLogOut"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logout"/>
+
+    </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/search"
+        android:icon="@mipmap/ic_action_search"
+        android:orderInCategory="102"
+        android:title="@string/search"
+        android:visible="false"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="collapseActionView|ifRoom" />
+
+    <item
+        android:id="@+id/additem"
+        android:orderInCategory="102"
+        android:title="@string/add_item"
+        android:visible="true"
+        app:showAsAction="collapseActionView|ifRoom" />
+
+</menu>

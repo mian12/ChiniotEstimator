@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/bg_edit_text" >
+
+
+
+    <TextView
+        android:id="@+id/tvEngName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="15dp"
+        android:text="@string/english_name"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/added"
+        android:layout_alignBottom="@+id/added"
+        android:layout_marginEnd="190dp"
+        android:layout_toStartOf="@+id/added"
+        android:text="@string/rate" />
+
+    <Button
+        android:id="@+id/added"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/btn_addtocart_selector"
+        android:layout_alignTop="@+id/tvEngName"
+        android:textColor="@color/colorWhite"
+        android:text="Add TO Cart" />
+
+
+</RelativeLayout>
+

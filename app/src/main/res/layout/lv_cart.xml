@@ -1,0 +1,87 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llHeading"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/dp5">
+
+    <TextView
+        android:id="@+id/tvSr"
+        android:layout_width="@dimen/dp40"
+        android:layout_height="wrap_content"
+        android:text="@string/sr"
+        android:textSize="@dimen/sp16" />
+
+    <TextView
+        android:id="@+id/tvEngName"
+        android:layout_width="@dimen/dp150"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:paddingRight="@dimen/dp5"
+        android:textSize="@dimen/sp16" />
+
+    <TextView
+        android:id="@+id/tvUOM"
+        android:layout_width="@dimen/dp80"
+        android:layout_height="wrap_content"
+        android:text="@string/uom"
+        android:textSize="@dimen/sp16" />
+
+    <TextView
+        android:id="@+id/tvCategory"
+        android:layout_width="@dimen/dp120"
+        android:layout_height="wrap_content"
+        android:text="@string/category"
+        android:textSize="@dimen/sp16" />
+
+    <TextView
+        android:id="@+id/tvQty"
+        android:layout_width="@dimen/dp80"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="@string/qty"
+        android:textSize="@dimen/sp16" />
+
+    <TextView
+        android:id="@+id/tvRate"
+        android:layout_width="@dimen/dp80"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="@string/rate"
+        android:textSize="@dimen/sp16" />
+
+    <TextView
+        android:id="@+id/tvMRate"
+        android:layout_width="@dimen/dp80"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="@string/mrate"
+        android:textSize="@dimen/sp16" />
+
+    <TextView
+        android:id="@+id/tvAmount"
+        android:layout_width="@dimen/dp80"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="@string/amount"
+        android:textSize="@dimen/sp16" />
+
+    <TextView
+        android:id="@+id/tvPer"
+        android:layout_width="@dimen/dp60"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="@string/per"
+        android:textSize="@dimen/sp16" />
+
+    <TextView
+        android:id="@+id/tvWeight"
+        android:layout_width="@dimen/dp80"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="@string/weight"
+        android:textSize="@dimen/sp16" />
+
+</LinearLayout>

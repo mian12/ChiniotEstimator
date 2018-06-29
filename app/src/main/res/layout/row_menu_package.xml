@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="15dp"
+>
+    <!--android:background="#990000"-->
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+
+        android:background="#990000"
+
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewPacakgeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PACKAGE 1"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+
+            android:textSize="30sp"/>
+
+        <TextView
+            android:id="@+id/textViewName1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textColor="@color/colorWhite"
+
+
+            />
+        <TextView
+            android:id="@+id/textViewName2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textColor="@color/colorWhite"
+
+            />
+        <TextView
+            android:id="@+id/textViewName3"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textColor="@color/colorWhite"
+
+
+            />
+        <TextView
+            android:id="@+id/textViewName4"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textColor="@color/colorWhite"
+
+
+            />
+        <TextView
+            android:id="@+id/textViewName5"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textColor="@color/colorWhite"
+
+
+            />
+        <TextView
+            android:id="@+id/textViewName6"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textColor="@color/colorWhite"
+
+
+            />
+        <TextView
+            android:id="@+id/textViewName7"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textColor="@color/colorWhite"
+
+
+            />
+        <TextView
+            android:id="@+id/textViewName8"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textColor="@color/colorWhite"
+
+
+            />
+        <TextView
+            android:id="@+id/textViewName9"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textColor="@color/colorWhite"
+
+
+            />
+        <TextView
+            android:id="@+id/textViewName10"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textColor="@color/colorWhite"
+
+
+            />
+
+
+        <TextView
+            android:id="@+id/textViewPerHeadValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Per Head: 3000"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/colorWhite"
+
+
+            />
+    </LinearLayout>
+</android.support.v7.widget.CardView>

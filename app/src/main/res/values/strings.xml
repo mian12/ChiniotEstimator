@@ -1,0 +1,79 @@
+<resources>
+    <string name="app_name">Chiniot Estimator</string>
+    <string name="log_in">Log In</string>
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
+
+    <string name="add_to_cart">ADD TO CART</string>
+    <string name="_12_000_pkr">12,000 PKR</string>
+    <string name="title">Title</string>
+    <string name="_35_off">35% OFF</string>
+    <string name="_1">1</string>
+    <string name="chicken_gharm">Chicken Gharm</string>
+    <string name="add">+</string>
+    <string name="less">-</string>
+    <string name="_3_000_rs">3,000 PKR X </string>
+    <string name="_9_000">= 9,000</string>
+    <string name="_3">3</string>
+    <string name="cart_is_empty">Cart is Empty</string>
+    <string name="total">Total</string>
+    <string name="_893_000_pkr">893,000 PKR</string>
+    <string name="check_out">Check Out</string>
+    <string name="_pkr">" PKR"</string>
+    <string name="cart">Cart</string>
+    <string name="order_detail">Order Detail</string>
+    <string name="english_name">English Name</string>
+    <string name="urdu_name">اردو نام</string>
+    <string name="uom">UOM</string>
+    <string name="unit">Unit of Measurement:</string>
+    <string name="per_person">Per Person:</string>
+    <string name="kilo">KILO کلو</string>
+    <string name="_3_00">3.00</string>
+    <string name="meat_weight">Meat Weight:</string>
+    <string name="_1_00">1.00</string>
+    <string name="remove_from_cart">Remove From Cart</string>
+    <string name="search">Search</string>
+    <string name="items">Items</string>
+    <string name="categories">Categories</string>
+    <string name="demo">demo</string>
+    <string name="sub_categories">Sub Categories</string>
+    <string name="get_estimate">Estimate</string>
+    <string name="persons">Persons</string>
+    <string name="_0">0</string>
+    <string name="increment_decrement_percentage">Increment/Decrement Percentage</string>
+    <string name="decrement">Decrement</string>
+    <string name="increment">Increment</string>
+    <string name="no_change">No Change</string>
+    <string name="_500">500</string>
+    <string name="print">Print</string>
+    <string name="sr">Sr#</string>
+    <string name="name">Name</string>
+    <string name="qty">Qty</string>
+    <string name="category">Category</string>
+    <string name="rate">Rate</string>
+    <string name="mrate">MRate</string>
+    <string name="amount">Amount</string>
+    <string name="per">Per</string>
+    <string name="weight">Weight</string>
+    <string name="clear_cart">Clear</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="gravy">Gravy</string>
+    <string name="dry">Dry</string>
+    <string name="sweets">Sweets</string>
+    <string name="rice">Rice</string>
+    <string name="bakery">Bakery</string>
+    <string name="chinese">Chinese</string>
+    <string name="sauce">Sauce</string>
+    <string name="others">Others</string>
+    <string name="others_two">Others Two</string>
+    <string name="others_three">Others Three</string>
+    <string name="done">Done</string>
+    <string name="save">Save</string>
+    <string name="voucher_no">Voucher No:</string>
+    <string name="add_item">Add Item</string>
+    <string name="search_by_nam">Search by Name</string>
+
+    <item name="visible" type="id" />
+    <item name="masked" type="id" />
+</resources>

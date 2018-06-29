@@ -1,0 +1,122 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp5"
+    android:background="@drawable/bg_edit_text"
+    android:padding="@dimen/dp10">
+
+    <TextView
+        android:id="@+id/tvSr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/dp5"
+        android:text="@string/_1" />
+
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="@dimen/dp60"
+        android:layout_height="@dimen/dp60"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/dp10"
+        android:layout_toRightOf="@id/tvSr"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/rlDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/llCounter"
+        android:layout_toRightOf="@id/ivIcon">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp5"
+            android:text="@string/chicken_gharm"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/sp16" />
+
+        <TextView
+            android:id="@+id/tvUrduName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp5"
+            android:gravity="right"
+            android:text="@string/chicken_gharm"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/colorPrimary"
+            android:layout_below="@id/tvTitle"
+            android:textSize="@dimen/sp16" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvUrduName"
+            android:padding="@dimen/dp5">
+
+            <TextView
+                android:id="@+id/tvProductPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/_3_000_rs"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:id="@+id/tvQty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/tvProductPrice"
+                android:padding="@dimen/dp2"
+                android:text="@string/_3"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/sp14"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvProductTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/tvQty"
+                android:text="@string/_9_000"
+                android:textSize="@dimen/sp12" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/dp5"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="@dimen/dp30"
+            android:layout_height="@dimen/dp40"
+            android:background="@color/colorPrimary"
+            android:padding="@dimen/dp2"
+            android:text="@string/add"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/sp18" />
+
+        <Button
+            android:id="@+id/btnLess"
+            android:layout_width="@dimen/dp30"
+            android:layout_height="@dimen/dp40"
+            android:background="@color/colorBlackMedium"
+            android:padding="@dimen/dp2"
+            android:text="@string/less"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/sp18" />
+
+    </LinearLayout>
+</RelativeLayout>

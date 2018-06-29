@@ -1,0 +1,721 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_weight=".5">
+
+
+
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back"   />
+
+
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <!-- KotMAIN Start here  -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp" android:orientation="vertical"
+            android:layout_weight="2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp" android:orientation="horizontal"
+                android:layout_weight="2"
+                android:layout_marginTop="@dimen/dp10">
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:descendantFocusability="beforeDescendants"
+                        android:focusableInTouchMode="true"
+                        android:layout_height="match_parent">
+
+
+                        <TextView
+                            android:id="@+id/vrTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="25dp"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:text="Vr#" />
+
+                        <EditText
+                            android:id="@+id/editTextVrValue"
+                            android:layout_marginLeft="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_toEndOf="@+id/vrTextView"
+                            android:ems="3"
+                            android:imeOptions="actionDone"
+                            android:inputType="number" />
+
+                        <ImageView
+                            android:id="@+id/imageViewVrUp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            app:srcCompat="@drawable/plus" />
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/menuTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBaseline="@+id/menuValue"
+                            android:layout_alignBottom="@+id/menuValue"
+                            android:layout_marginEnd="73dp"
+                            android:layout_toStartOf="@+id/menuValue"
+                            android:text="Menu"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/menuValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="81dp"
+                            android:text="PACKAGE 1" />
+
+                        <ImageView
+                            android:id="@+id/imageViewVrDown"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignTop="@+id/menuValue"
+                            android:layout_marginStart="15dp"
+                            app:srcCompat="@drawable/minus" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp"
+
+                android:layout_weight="2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <ImageView
+                            android:id="@+id/imageViewDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginStart="24dp"
+                            android:src="@drawable/date_selector" />
+
+                        <TextView
+                            android:id="@+id/textViewDateValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="83dp"
+                            android:text="12/11/2018" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <ImageView
+                            android:id="@+id/imageViewOrderDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginStart="36dp"
+                            android:src="@drawable/orderdate_selector" />
+
+                        <TextView
+                            android:id="@+id/orderDateValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="84dp"
+                            android:text="24/12/2018" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+        </LinearLayout>
+        <!-- KotMAIN end  here  -->
+
+    </ScrollView>
+
+
+
+
+    <!-- header gridview Cart Start here  -->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp" android:orientation="horizontal"
+        android:layout_weight="4">
+
+
+        <!-- package cart start here  -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent" android:orientation="vertical"
+            android:layout_weight="5">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:background="#990000"
+
+
+                    android:layout_weight="2"
+                    android:layout_height="1dp">
+
+                    <TextView
+                        android:layout_width="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorWhite"
+                        android:text="#"
+
+                        android:textSize="@dimen/sp16" />
+
+                    <TextView
+                        android:layout_width="250dp"
+                        android:textColor="@color/colorWhite"
+
+                        android:layout_height="wrap_content"
+                        android:text="Item Name"
+                        android:textSize="@dimen/sp16" />
+
+
+
+
+
+
+                </LinearLayout>
+            </ScrollView>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="8"
+                    android:layout_height="1dp">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rvCart"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
+
+        <!-- package cart start end  header  -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2">
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#990000"></View>
+
+        </LinearLayout>
+
+        <!--  extra details cart start  header  -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="7">
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:background="#990000"
+                    android:layout_weight="2"
+                    android:layout_height="1dp">
+
+                    <TextView
+                        android:layout_width="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="wrap_content"
+                        android:text="#"
+                        android:textColor="@color/colorWhite"
+
+                        android:textSize="@dimen/sp16" />
+
+                    <TextView
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:text="Extra Item"
+                        android:textColor="@color/colorWhite"
+
+                        android:textSize="@dimen/sp16" />
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="Price"
+                        android:textColor="@color/colorWhite"
+
+                        android:textSize="@dimen/sp16" />
+
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+
+                        android:textSize="@dimen/sp16" />
+
+
+
+                </LinearLayout>
+            </ScrollView>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="8"
+                    android:layout_height="1dp">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rvExtraCart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
+
+        <!--  extra details cart start  end  header  -->
+
+
+
+
+
+
+    </LinearLayout>
+
+    <!-- header gridview Cart end here  -->
+
+
+
+
+
+    <!-- Summery Remaining KotMain Start here  -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/perHeadTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="27dp"
+                        android:text="Per Head"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/perHeadValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/perHeadTextView"
+                        android:layout_centerVertical="true"
+                        android:text="0.0" />
+
+                    <TextView
+                        android:id="@+id/amountTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="13dp"
+                        android:layout_toEndOf="@+id/perHeadTextView"
+                        android:text="Extra"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/extraValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/amountTextView"
+                        android:layout_centerVertical="true"
+                        android:text="0.0" />
+
+                    <TextView
+                        android:id="@+id/dispercentTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="33dp"
+                        android:layout_toEndOf="@+id/amountTextView"
+                        android:text="Dis"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/editTextDiscount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignStart="@+id/dispercentTextView"
+                        android:layout_below="@+id/dispercentTextView"
+                        android:ems="3"
+                        android:hint="%"
+                        android:inputType="number"
+                        android:maxLength="5" />
+
+                    <EditText
+                        android:id="@+id/discValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/editTextDiscount"
+                        android:inputType="number"
+                        android:ems="4"
+                        android:hint="Rs:"/>
+
+                    <TextView
+                        android:id="@+id/taxTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/discValue"
+                        android:layout_marginStart="22dp"
+                        android:layout_toEndOf="@+id/discValue"
+                        android:text="Tax"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/editTextTax"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/editTextDiscount"
+                        android:layout_alignStart="@+id/taxTextView"
+                        android:ems="2"
+                        android:maxLength="2"
+                        android:hint="%"
+                        android:inputType="number"/>
+
+                    <TextView
+                        android:id="@+id/totalPerHeadTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/totalPerHeadValue"
+                        android:layout_alignTop="@+id/taxValue"
+                        android:text="Total"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/taxValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/taxTextView"
+                        android:layout_toEndOf="@+id/editTextTax"
+                        android:text="0.0" />
+
+                    <TextView
+                        android:id="@+id/totalPerHeadValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/totalPerHeadTextView"
+                        android:layout_marginStart="103dp"
+                        android:layout_toEndOf="@+id/taxValue"
+                        android:text="0.0" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_weight="5">-->
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent">-->
+
+
+                <!--</RelativeLayout>-->
+
+
+            <!--</LinearLayout>-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp" android:orientation="horizontal"
+                android:layout_weight="5">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="6">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <TextView
+                            android:id="@+id/noOfPersonstextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginStart="24dp"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:text="No Of Persons" />
+
+                        <EditText
+                            android:id="@+id/editTextNoofPersons"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignStart="@+id/noOfPersonstextView"
+                            android:layout_below="@+id/noOfPersonstextView"
+                            android:ems="10"
+                            android:inputType="number"
+                            android:text="" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center" android:layout_marginTop="10dp"
+                    android:layout_weight="4">
+
+                    <TextView
+                        android:id="@+id/netAmountTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Net Amount"
+                        android:layout_marginLeft="17dp"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/netAmountValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:layout_marginLeft="17dp"
+
+                        android:textColor="#FF0000"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <!-- Summery Remaining KotMain end here  -->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_weight=".5">
+
+        <ImageView
+            android:id="@+id/extraItems"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/extra_items_selector"   />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_weight="1">
+        <ImageView
+            android:id="@+id/reset"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/reset_selector"/>
+        <ImageView
+            android:id="@+id/save"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/save_selector"/>
+
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/delete_selector" />
+
+        <ImageView
+            android:id="@+id/print"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/print_selector"/>
+
+
+<!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp" android:gravity="center"-->
+    <!--android:layout_weight="5">-->
+    <!--<ImageView-->
+        <!--android:id="@+id/reset"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@drawable/reset_selector"/>-->
+    <!--<ImageView-->
+        <!--android:id="@+id/save"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@drawable/save_selector"/>-->
+
+
+<!--</LinearLayout>-->
+        <!--<LinearLayout android:gravity="center"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="5">-->
+
+
+            <!--<ImageView-->
+                <!--android:id="@+id/delete"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@drawable/delete_selector"/>-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/print"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@drawable/print_selector"/>-->
+        <!--</LinearLayout>-->
+
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
