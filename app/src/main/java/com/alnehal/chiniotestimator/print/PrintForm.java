@@ -103,11 +103,19 @@ public  class PrintForm {
     String vrnoa;
     String noOfPersons;
     String netAmountValue;
+    String foodTypeName;
+    String comments;
+    String taxPercent;
     public  PrintForm(Context context, ArrayList<CartModel> list, String ph, String ExtraPH, String Tax,String TPH, String pdfFileName,   ArrayList<ExtraDetailCartModel> listExtraItems,
-                      String date,String oderDate,String packageName,String vrnoa,String noOfPersons, String netAmountValue)
+                      String date,String oderDate,String packageName,String vrnoa,String noOfPersons, String netAmountValue,String comments, String foodTypeName, String taxPercent)
     {
         this.context=context;
         this.list=list;
+
+        this.comments=comments;
+        this.foodTypeName=foodTypeName;
+        this.taxPercent=taxPercent;
+
 
         this.previousBalance=previousBalance;
         this.thisInvoice=thisInvoice;
@@ -259,10 +267,14 @@ public  class PrintForm {
         smallTable(document);
         // options table
         table2(document);
-        // remarks table
+        // Food Type table
         orderDateTabel(document);
         // no of persons table
         noOfPersonsTabel(document);
+
+        // remarks/commnets table
+        remarksCommentTabel(document);
+
 
         // now give space from  main Table
         Paragraph preface = new Paragraph();
@@ -549,7 +561,7 @@ public  class PrintForm {
         preface.add(new Paragraph("Per Head : "+grossGPS,customFont2));
 
 
-       preface.add(new Paragraph("Tax : "+totalTax,customFont2));
+       preface.add(new Paragraph("Tax  "+taxPercent+"%"+"                   :  "+totalTax,customFont2));
 
 
 
@@ -657,7 +669,7 @@ public  class PrintForm {
         table.setWidthPercentage(100);
 
         //Customer
-        PdfPCell c1 = new PdfPCell(new Phrase("Remarks   : "+"",customFont2));
+        PdfPCell c1 = new PdfPCell(new Phrase("Food Type   : "+foodTypeName,customFont2));
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         c1.setBorder(Rectangle.NO_BORDER);
 
@@ -714,6 +726,40 @@ public  class PrintForm {
 
 
     }
+    public   void remarksCommentTabel(com.itextpdf.text.Document document) throws DocumentException, IOException {
+
+
+        Font customFont2=itextFontWithoutBold(15);
+        Font customFont3=itextFontWithBold(15);
+
+        float[] columnwidth = {3};
+        PdfPTable table = new PdfPTable(columnwidth);
+        table.setWidthPercentage(100);
+
+        //Customer
+        PdfPCell c1 = new PdfPCell(new Phrase("Remarks   : "+comments,customFont2));
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        c1.setBorder(Rectangle.NO_BORDER);
+
+        table.addCell(c1);
+        //Invoice
+//        PdfPCell c2 = new PdfPCell(new Phrase("check: "+oderDate,customFont3));
+//        c2.setHorizontalAlignment(Element.ALIGN_LEFT);
+//        table.addCell(c2);
+
+
+        try {
+            document.add(table);
+
+
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
 
     public  void table2(com.itextpdf.text.Document document) throws DocumentException, IOException {
         Font customFont2=itextFontWithoutBold(15);

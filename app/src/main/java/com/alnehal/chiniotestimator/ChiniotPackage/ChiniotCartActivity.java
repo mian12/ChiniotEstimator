@@ -21,10 +21,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +55,7 @@ import java.util.Map;
 import DB.SQLiteDatabaseHelper;
 import adapter.MyCartAdapter;
 import adapter.MyExtrItemsCartlAdapter;
+import adapter.SpinnerSelectValueAdapter;
 import model.CartModel;
 import model.ExtraDetailCartModel;
 import model.ItemModel;
@@ -61,35 +64,37 @@ import utilis.MySingleton;
 
 public class ChiniotCartActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ImageView  imageViewDate,imageViewOrderDate,saveButton,backButton,resetButton,printButton;
-    TextView dateValueTextView,orderDateValueTextView;
+    ImageView imageViewDate, imageViewOrderDate, saveButton, backButton, resetButton, printButton;
+    TextView dateValueTextView, orderDateValueTextView;
 
-
+    public boolean flagFtype;
+    String foodType_NAME = "";
 
     public ProgressDialog progressDialog;
 
-    int vrCounter=0;
+    int vrCounter = 0;
     private Calendar cal;
     private int day;
     private int month;
     private int year;
-   public RecyclerView rvPackageCart,rvExtraDetailCart;
+    public RecyclerView rvPackageCart, rvExtraDetailCart;
 
     public SQLiteDatabaseHelper db;
-    EditText editTextVrValue,editTextDiscountPercent,editTextTax,editTextNoofPersons,editTextDiscountValue;
-    TextView menuValueTV,perHeadValueTV,extraValueTV,taxValueTextView,totalValueTextView,netAmountValueTextView;
-        ImageView extraItemsImageView;
-    ImageView vrUpImageView,vrDownImageView,deleteButton;
+    EditText editTextVrValue, editTextDiscountPercent, editTextTax, editTextNoofPersons, editTextDiscountValue;
+    TextView menuValueTV, perHeadValueTV, extraValueTV, taxValueTextView, totalValueTextView, netAmountValueTextView;
+    ImageView extraItemsImageView;
+    ImageView vrUpImageView, vrDownImageView, deleteButton;
 
 
     float TotalAmount = 0;
-    ArrayList<CartModel> cartDataList=null;
-    ArrayList<ExtraDetailCartModel> listExtraItems=null;
+    ArrayList<CartModel> cartDataList = null;
+    ArrayList<ExtraDetailCartModel> listExtraItems = null;
 
-    public boolean flagDiscountValue=false;
+    public boolean flagDiscountValue = false;
 
 
-
+    Spinner spinnerFoodType;
+    EditText editTextComments;
 
 
     @Override
@@ -97,76 +102,80 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chiniot_cart);
 
-     //   context=this;
-     //   getSupportActionBar().hide();
+        //   context=this;
+        //   getSupportActionBar().hide();
 
-        db=new SQLiteDatabaseHelper(ChiniotCartActivity.this);
+        db = new SQLiteDatabaseHelper(ChiniotCartActivity.this);
 
 
 //
-       // getSupportActionBar().setHomeButtonEnabled(true);
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // getSupportActionBar().setHomeButtonEnabled(true);
+        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setTitle(R.string.items);
 
-        editTextDiscountPercent= (EditText) findViewById(R.id.editTextDiscount);
-        editTextDiscountValue= (EditText) findViewById(R.id.discValue);
-        editTextTax= (EditText) findViewById(R.id.editTextTax);
-        editTextNoofPersons= (EditText) findViewById(R.id.editTextNoofPersons);
+        editTextDiscountPercent = (EditText) findViewById(R.id.editTextDiscount);
+        editTextDiscountValue = (EditText) findViewById(R.id.discValue);
+        editTextTax = (EditText) findViewById(R.id.editTextTax);
+        editTextNoofPersons = (EditText) findViewById(R.id.editTextNoofPersons);
+
+        editTextComments=findViewById(R.id.editTextComments);
 
 
-        imageViewDate= (ImageView) findViewById(R.id.imageViewDate);
-        imageViewOrderDate= (ImageView) findViewById(R.id.imageViewOrderDate);
+        imageViewDate = (ImageView) findViewById(R.id.imageViewDate);
+        imageViewOrderDate = (ImageView) findViewById(R.id.imageViewOrderDate);
 
-        dateValueTextView= (TextView) findViewById(R.id.textViewDateValue);
-        orderDateValueTextView= (TextView) findViewById(R.id.orderDateValue);
+        dateValueTextView = (TextView) findViewById(R.id.textViewDateValue);
+        orderDateValueTextView = (TextView) findViewById(R.id.orderDateValue);
+
+        spinnerFoodType = findViewById(R.id.spinnerFoodType);
 
 
-        if (!MyApplication.percent.equalsIgnoreCase("0"))
-        {
+        String[] foodTypeArray = {"BreakFast", "Lunch", "Dinner"};
+
+        foodTypeSpinner(spinnerFoodType, foodTypeArray, 0);
+
+
+        if (!MyApplication.percent.equalsIgnoreCase("0")) {
             editTextDiscountPercent.setText(MyApplication.percent);
         }
 
 
-
-        if (!MyApplication.tax.equalsIgnoreCase("0"))
-        {
+        if (!MyApplication.tax.equalsIgnoreCase("0")) {
             editTextTax.setText(MyApplication.tax);
         }
 
-        if (!MyApplication.noOfPersons.equalsIgnoreCase("0"))
-        {
+        if (!MyApplication.noOfPersons.equalsIgnoreCase("0")) {
             editTextNoofPersons.setText(MyApplication.noOfPersons);
         }
-        if (!MyApplication.date.equalsIgnoreCase("0") &&  !MyApplication.orderDate.equalsIgnoreCase("0"))
-        {
+        if (!MyApplication.date.equalsIgnoreCase("0") && !MyApplication.orderDate.equalsIgnoreCase("0")) {
             dateValueTextView.setText(MyApplication.date);
             orderDateValueTextView.setText(MyApplication.orderDate);
-        }
-        else
-        {
+        } else {
             DateSetter();
         }
 
+        if (editTextTax.getText().toString().equalsIgnoreCase("")) {
+            editTextTax.setText("5");
 
-        deleteButton= (ImageView) findViewById(R.id.delete);
+        }
+
+        deleteButton = (ImageView) findViewById(R.id.delete);
         deleteButton.setOnClickListener(this);
 
 
+        taxValueTextView = (TextView) findViewById(R.id.taxValue);
+        totalValueTextView = (TextView) findViewById(R.id.totalPerHeadValue);
+        netAmountValueTextView = (TextView) findViewById(R.id.netAmountValue);
 
-        taxValueTextView= (TextView) findViewById(R.id.taxValue);
-        totalValueTextView= (TextView) findViewById(R.id.totalPerHeadValue);
-        netAmountValueTextView= (TextView) findViewById(R.id.netAmountValue);
 
-
-        printButton= (ImageView) findViewById(R.id.print);
+        printButton = (ImageView) findViewById(R.id.print);
         printButton.setOnClickListener(this);
 
-        vrUpImageView= (ImageView) findViewById(R.id.imageViewVrUp);
+        vrUpImageView = (ImageView) findViewById(R.id.imageViewVrUp);
         vrUpImageView.setOnClickListener(this);
 
-        vrDownImageView= (ImageView) findViewById(R.id.imageViewVrDown);
+        vrDownImageView = (ImageView) findViewById(R.id.imageViewVrDown);
         vrDownImageView.setOnClickListener(this);
-
 
 
         progressDialog = new ProgressDialog(ChiniotCartActivity.this);
@@ -174,16 +183,13 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
 
-        extraValueTV= (TextView) findViewById(R.id.extraValue);
+        extraValueTV = (TextView) findViewById(R.id.extraValue);
 
 
+        rvPackageCart = (RecyclerView) findViewById(R.id.rvCart);
+        rvExtraDetailCart = (RecyclerView) findViewById(R.id.rvExtraCart);
 
-
-
-        rvPackageCart= (RecyclerView) findViewById(R.id.rvCart);
-        rvExtraDetailCart= (RecyclerView) findViewById(R.id.rvExtraCart);
-
-        editTextVrValue= (EditText) findViewById(R.id.editTextVrValue);
+        editTextVrValue = (EditText) findViewById(R.id.editTextVrValue);
 
 
         editTextVrValue.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -191,7 +197,7 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
             // android:imeOptions="actionDone"
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_ACTION_DONE){
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
                     //do stuff
 
                     // hide keyboard
@@ -201,20 +207,14 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
                     db.claerAllItems();
 
 
-
-
                     try {
-                        vrCounter=Integer.parseInt(v.getText().toString());
-                    }
-                    catch (Exception e)
-                    {
+                        vrCounter = Integer.parseInt(v.getText().toString());
+                    } catch (Exception e) {
                         e.getMessage();
                     }
 
 
-
-                    MyApplication.vrnoa_all=vrCounter+"";
-
+                    MyApplication.vrnoa_all = vrCounter + "";
 
 
                     getDataVrno();
@@ -226,30 +226,28 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
         });
 
 
-        menuValueTV= (TextView) findViewById(R.id.menuValue);
-        perHeadValueTV= (TextView) findViewById(R.id.perHeadValue);
+        menuValueTV = (TextView) findViewById(R.id.menuValue);
+        perHeadValueTV = (TextView) findViewById(R.id.perHeadValue);
 
-        extraItemsImageView= (ImageView) findViewById(R.id.extraItems);
+        extraItemsImageView = (ImageView) findViewById(R.id.extraItems);
         extraItemsImageView.setOnClickListener(this);
 
 
 //        backButton= (ImageView) findViewById(R.id.back);
 //        backButton.setOnClickListener(this);
 
-        resetButton= (ImageView) findViewById(R.id.reset);
+        resetButton = (ImageView) findViewById(R.id.reset);
         resetButton.setOnClickListener(this);
 
-        saveButton= (ImageView) findViewById(R.id.save);
+        saveButton = (ImageView) findViewById(R.id.save);
         saveButton.setOnClickListener(this);
 
 
-
         try {
-           cartDataList = db.getCartVales();
+            cartDataList = db.getCartVales();
             String vrNoa = cartDataList.get(0).getVrnoa();
             String menu = cartDataList.get(0).getItemPackage();
             String perHead = cartDataList.get(0).getMenuRate();
-
 
 
             editTextVrValue.setText(vrNoa);
@@ -257,9 +255,7 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
             perHeadValueTV.setText(perHead);
 
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.getMessage();
         }
 
@@ -273,35 +269,29 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
         rvExtraDetailCart.setItemAnimator(new DefaultItemAnimator());
 
 
-
-        MyCartAdapter adapter=new MyCartAdapter(ChiniotCartActivity.this,cartDataList);
+        MyCartAdapter adapter = new MyCartAdapter(ChiniotCartActivity.this, cartDataList);
 
         rvPackageCart.setAdapter(adapter);
 
 
+        float extraAmount = 0;
 
-        float  extraAmount=0;
+        try {
+            listExtraItems = db.getExtraItemsCartVales();
 
-        try
-        {
-                listExtraItems=db.getExtraItemsCartVales();
+            for (int i = 0; i < listExtraItems.size(); i++) {
 
-            for (int i=0; i<listExtraItems.size(); i++)
-            {
-
-                extraAmount+=Float.parseFloat(listExtraItems.get(i).getItemRate());
+                extraAmount += Float.parseFloat(listExtraItems.get(i).getItemRate());
 
             }
 
-            extraValueTV.setText(extraAmount+"");
+            extraValueTV.setText(extraAmount + "");
 
-            MyExtrItemsCartlAdapter adapterExtra = new MyExtrItemsCartlAdapter(ChiniotCartActivity.this,listExtraItems,perHeadValueTV,extraValueTV,editTextDiscountValue,taxValueTextView,totalValueTextView,netAmountValueTextView,editTextVrValue,editTextDiscountPercent,editTextTax,editTextNoofPersons);
+            MyExtrItemsCartlAdapter adapterExtra = new MyExtrItemsCartlAdapter(ChiniotCartActivity.this, listExtraItems, perHeadValueTV, extraValueTV, editTextDiscountValue, taxValueTextView, totalValueTextView, netAmountValueTextView, editTextVrValue, editTextDiscountPercent, editTextTax, editTextNoofPersons);
 
             rvExtraDetailCart.setAdapter(adapterExtra);
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.getMessage();
         }
 
@@ -310,18 +300,13 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
         float extra = validaterInteger(extraValueTV.getText().toString());
 
 
-        MyApplication.totalAmount=perHead+extra;
+        MyApplication.totalAmount = perHead + extra;
 
 
-
-
-        if (MyApplication.vrnoa_all.equalsIgnoreCase("0"))
-        {
+        if (MyApplication.vrnoa_all.equalsIgnoreCase("0")) {
 
             editTextVrValue.setText(MyApplication.maxId_global);
-        }
-        else
-        {
+        } else {
             editTextVrValue.setText(MyApplication.vrnoa_all);
         }
 
@@ -334,26 +319,21 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
         textchangerNoOfPersons();
 
 
-
 //        if (!MyApplication.discount.equalsIgnoreCase("0"))
 //        {
 //            editTextDiscountValue.setText(MyApplication.discount);
 //        }
 
 
-     ///   getCurrentFocus();
-
+        ///   getCurrentFocus();
 
 
     }
 
 
-
-
-
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this,ChiniotPackageActivity.class));
+        startActivity(new Intent(this, ChiniotPackageActivity.class));
         finish();
     }
 
@@ -365,7 +345,7 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
         switch (id) {
             case android.R.id.home:
 
-                startActivity(new Intent(this,ChiniotPackageActivity.class));
+                startActivity(new Intent(this, ChiniotPackageActivity.class));
                 finish();
                 //onBackPressed();
                 return true;
@@ -387,16 +367,14 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case  R.id.imageViewVrUp:
+            case R.id.imageViewVrUp:
                 try {
                     vrCounter = Integer.parseInt(editTextVrValue.getText().toString());
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.getMessage();
                 }
-                vrCounter+=1;
-                editTextVrValue.setText(vrCounter+"");
+                vrCounter += 1;
+                editTextVrValue.setText(vrCounter + "");
 
                 db.claerAllItems();
 
@@ -406,39 +384,31 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
 
                 break;
 
-            case  R.id.imageViewVrDown:
+            case R.id.imageViewVrDown:
 
                 try {
                     vrCounter = Integer.parseInt(editTextVrValue.getText().toString());
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.getMessage();
                 }
 
-                vrCounter-=1;
+                vrCounter -= 1;
 
-                if (vrCounter<1)
-                {
-                    vrCounter=1;
+                if (vrCounter < 1) {
+                    vrCounter = 1;
                 }
 
-                editTextVrValue.setText(vrCounter+"");
+                editTextVrValue.setText(vrCounter + "");
                 db.claerAllItems();
 
                 editTextVrValue.requestFocus();
                 getDataVrno();
 
                 break;
-
-
-
 
 
             case R.id.save:
-                try
-                {
-
+                try {
 
 
                     if (MyApplication.vrnoa_all.equalsIgnoreCase("0")) {
@@ -452,8 +422,7 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
 
                     } else {
 
-                        if (MyApplication.update_user.equalsIgnoreCase("0"))
-                        {
+                        if (MyApplication.update_user.equalsIgnoreCase("0")) {
                             Toast.makeText(ChiniotCartActivity.this, "Sorry you have no rights", Toast.LENGTH_SHORT).show();
                             break;
 
@@ -463,91 +432,87 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
                     }
 
 
+                    String mainDate = dateValueTextView.getText().toString();
+                    String orderDate = orderDateValueTextView.getText().toString();
+                    if (cartDataList.size() > 0) {
+
+                        JSONObject estimateObject = new JSONObject();
+
+                        estimateObject.put("vrnoa", MyApplication.vrnoa_all);
+                        estimateObject.put("vrno", MyApplication.vrnoa_all);
+                        estimateObject.put("vrdate", mainDate);
+                        estimateObject.put("etype", "estimate");
+                        estimateObject.put("party_id", "1");
+                        estimateObject.put("order_date", orderDate);
+
+                        estimateObject.put("persons", editTextNoofPersons.getText().toString());
+                        estimateObject.put("per_head", perHeadValueTV.getText().toString());
+                        estimateObject.put("total_amount", netAmountValueTextView.getText().toString());
+                        estimateObject.put("advance", "0");
+                        estimateObject.put("balance", "0");
+                        estimateObject.put("discount", editTextDiscountValue.getText().toString());
+                        estimateObject.put("discountpercent", editTextDiscountPercent.getText().toString());
+                        estimateObject.put("tax", taxValueTextView.getText().toString());
+                        estimateObject.put("taxpercent", editTextTax.getText().toString());
+                        estimateObject.put("extraperhead", extraValueTV.getText().toString());
+                        estimateObject.put("menu_id", cartDataList.get(0).getMenuId());
+                        estimateObject.put("rate_calc", "1");
+                        estimateObject.put("uid", MyApplication.userId);
+
+                        estimateObject.put("remarks", "");
+                        estimateObject.put("status1", "");
 
 
-                    String mainDate=dateValueTextView.getText().toString();
-                    String orderDate=orderDateValueTextView.getText().toString();
-                if (cartDataList.size() > 0) {
+                        estimateObject.put("ph", perHeadValueTV.getText().toString());
+                        estimateObject.put("total_weight", "0");
 
-                JSONObject estimateObject = new JSONObject();
+                        JSONArray estimateDetailArray = new JSONArray();
+                        JSONObject estimateDetailObject;
+                        for (int i = 0; i < cartDataList.size(); i++) {
+                            estimateDetailObject = new JSONObject();
+                            estimateDetailObject.put("oid", "0");
+                            estimateDetailObject.put("prid", cartDataList.get(i).getItemId());
+                            estimateDetailObject.put("qty", "0");
+                            estimateDetailObject.put("rate", "0");
+                            estimateDetailObject.put("mrate", "0");
+                            estimateDetailObject.put("amount", "0");
+                            estimateDetailObject.put("per", "0");
+                            estimateDetailObject.put("weight", "0");
+                            estimateDetailObject.put("gweight", "0");
+                            estimateDetailObject.put("type", "menu");
 
-                estimateObject.put("vrnoa", MyApplication.vrnoa_all);
-                estimateObject.put("vrno",MyApplication.vrnoa_all);
-                estimateObject.put("vrdate", mainDate);
-                estimateObject.put("etype", "estimate");
-                estimateObject.put("party_id", "1");
-                estimateObject.put("order_date", orderDate);
-
-                estimateObject.put("persons", editTextNoofPersons.getText().toString());
-                estimateObject.put("per_head", perHeadValueTV.getText().toString());
-                estimateObject.put("total_amount", netAmountValueTextView.getText().toString());
-                estimateObject.put("advance", "0");
-                estimateObject.put("balance", "0");
-                    estimateObject.put("discount", editTextDiscountValue.getText().toString());
-                    estimateObject.put("discountpercent", editTextDiscountPercent.getText().toString());
-                    estimateObject.put("tax", taxValueTextView.getText().toString());
-                    estimateObject.put("taxpercent", editTextTax.getText().toString());
-                    estimateObject.put("extraperhead", extraValueTV.getText().toString());
-                    estimateObject.put("menu_id",cartDataList.get(0).getMenuId() );
-                    estimateObject.put("rate_calc", "1");
-                    estimateObject.put("uid", MyApplication.userId);
-
-                estimateObject.put("remarks", "");
-                estimateObject.put("status1", "");
+                            estimateDetailArray.put(estimateDetailObject);
+                        }
 
 
-                estimateObject.put("ph", perHeadValueTV.getText().toString());
-                estimateObject.put("total_weight","0");
+                        for (int i = 0; i < listExtraItems.size(); i++) {
+                            estimateDetailObject = new JSONObject();
+                            estimateDetailObject.put("oid", "0");
+                            estimateDetailObject.put("prid", listExtraItems.get(i).getItemId());
+                            estimateDetailObject.put("rate", listExtraItems.get(i).getItemRate());
+                            estimateDetailObject.put("type", "extra");
 
-                JSONArray estimateDetailArray = new JSONArray();
-                JSONObject estimateDetailObject;
-                for (int i = 0; i < cartDataList.size(); i++) {
-                    estimateDetailObject = new JSONObject();
-                    estimateDetailObject.put("oid", "0");
-                    estimateDetailObject.put("prid", cartDataList.get(i).getItemId());
-                    estimateDetailObject.put("qty", "0");
-                    estimateDetailObject.put("rate","0");
-                    estimateDetailObject.put("mrate", "0");
-                    estimateDetailObject.put("amount", "0");
-                    estimateDetailObject.put("per", "0");
-                    estimateDetailObject.put("weight", "0");
-                    estimateDetailObject.put("gweight", "0");
-                    estimateDetailObject.put("type", "menu");
-
-                    estimateDetailArray.put(estimateDetailObject);
-                }
+                            estimateDetailArray.put(estimateDetailObject);
+                        }
 
 
-                    for (int i = 0; i < listExtraItems.size(); i++) {
-                        estimateDetailObject = new JSONObject();
-                        estimateDetailObject.put("oid", "0");
-                        estimateDetailObject.put("prid", listExtraItems.get(i).getItemId());
-                        estimateDetailObject.put("rate",listExtraItems.get(i).getItemRate());
-                        estimateDetailObject.put("type", "extra");
+                        saveData(estimateObject.toString(), estimateDetailArray.toString());
 
-                        estimateDetailArray.put(estimateDetailObject);
+
+                    } else {
+
+                        // showToast("Add atleast one item!", 1, Gravity.CENTER);
                     }
-
-
-                    saveData(estimateObject.toString(),estimateDetailArray.toString());
-
-
-
-
-            } else {
-
-               // showToast("Add atleast one item!", 1, Gravity.CENTER);
-            }
-        }catch (Exception e) {
-                e.printStackTrace();
-            }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 break;
 
             case R.id.extraItems:
 
-                    startActivity(new Intent(ChiniotCartActivity.this,ChiniotExtraItemsActivity.class));
-                    finish();
+                startActivity(new Intent(ChiniotCartActivity.this, ChiniotExtraItemsActivity.class));
+                finish();
 
                 break;
 
@@ -557,37 +522,34 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
                 resetData();
 
                 break;
-            case  R.id.delete:
+            case R.id.delete:
 
-                if (MyApplication.delete_user.equalsIgnoreCase("0"))
-                {
+                if (MyApplication.delete_user.equalsIgnoreCase("0")) {
                     Toast.makeText(ChiniotCartActivity.this, "Sorry you have no rights", Toast.LENGTH_SHORT).show();
                     break;
 
                 }
 
 
-              deleteVrno();
-              break;
+                deleteVrno();
+                break;
 
 
-            case  R.id.print:
+            case R.id.print:
 
-                if (MyApplication.print_user.equalsIgnoreCase("0"))
-                {
+                if (MyApplication.print_user.equalsIgnoreCase("0")) {
                     Toast.makeText(ChiniotCartActivity.this, "Sorry you have no rights", Toast.LENGTH_SHORT).show();
                     break;
 
                 }
 
-                PrintForm printForm=new PrintForm(ChiniotCartActivity.this,cartDataList,perHeadValueTV.getText().toString(),
-                        extraValueTV.getText().toString(),taxValueTextView.getText().toString(),totalValueTextView.getText().toString(),
-                        "CP",listExtraItems,dateValueTextView.getText().toString(),orderDateValueTextView.getText().toString(),menuValueTV.getText().toString(),
-                        MyApplication.vrnoa_all,editTextNoofPersons.getText().toString(),netAmountValueTextView.getText().toString());
+                PrintForm printForm = new PrintForm(ChiniotCartActivity.this, cartDataList, perHeadValueTV.getText().toString(),
+                        extraValueTV.getText().toString(), taxValueTextView.getText().toString(), totalValueTextView.getText().toString(),
+                        "CP", listExtraItems, dateValueTextView.getText().toString(), orderDateValueTextView.getText().toString(), menuValueTV.getText().toString(),
+                        MyApplication.vrnoa_all, editTextNoofPersons.getText().toString(), netAmountValueTextView.getText().toString(),editTextComments.getText().toString(),foodType_NAME,editTextTax.getText().toString());
 
 
                 break;
-
 
 
         }
@@ -595,19 +557,17 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-    public  void resetData()
-    {
+    public void resetData() {
         db.deleteCart();
         db.deleteExtraItemsCart();
-        MyApplication.totalAmount=0;
+        MyApplication.totalAmount = 0;
 
-        MyApplication.vrnoa_all="0";
+        MyApplication.vrnoa_all = "0";
 
-        MyApplication.date="0";
-        MyApplication.orderDate="0";
+        MyApplication.date = "0";
+        MyApplication.orderDate = "0";
 
         DateSetter();
-
 
 
         editTextVrValue.setText("");
@@ -628,22 +588,16 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
         editTextNoofPersons.setText("");
 
 
-
-
-
-
         cartDataList = db.getCartVales();
 
-        MyCartAdapter adapter=new MyCartAdapter(ChiniotCartActivity.this,cartDataList);
+        MyCartAdapter adapter = new MyCartAdapter(ChiniotCartActivity.this, cartDataList);
 
         rvPackageCart.setAdapter(adapter);
 
 
+        listExtraItems = db.getExtraItemsCartVales();
 
-
-        listExtraItems=db.getExtraItemsCartVales();
-
-        MyExtrItemsCartlAdapter adapterExtra = new MyExtrItemsCartlAdapter(ChiniotCartActivity.this,listExtraItems,perHeadValueTV,extraValueTV,editTextDiscountValue,taxValueTextView,totalValueTextView,netAmountValueTextView,editTextVrValue,editTextDiscountPercent,editTextTax,editTextNoofPersons);
+        MyExtrItemsCartlAdapter adapterExtra = new MyExtrItemsCartlAdapter(ChiniotCartActivity.this, listExtraItems, perHeadValueTV, extraValueTV, editTextDiscountValue, taxValueTextView, totalValueTextView, netAmountValueTextView, editTextVrValue, editTextDiscountPercent, editTextTax, editTextNoofPersons);
 
         rvExtraDetailCart.setAdapter(adapterExtra);
 
@@ -663,8 +617,7 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-    public  void saveData(final String estmateMain, final String estimateDetail)
-    {
+    public void saveData(final String estmateMain, final String estimateDetail) {
 
         progressDialog.show();
 
@@ -676,7 +629,7 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
                         saveButton.setEnabled(true);
                         progressDialog.dismiss();
 
-                     //   Log.e("Respone",response);
+                        //   Log.e("Respone",response);
 
                         if (response != null) {
 
@@ -697,14 +650,14 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
                 Toast.makeText(ChiniotCartActivity.this,
                         "something went wrong", Toast.LENGTH_SHORT).show();
             }
-        })  {
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-               // int vrnoa=Integer.parseInt(editTextVrValue.getText().toString());
-                String vrnoa=MyApplication.vrnoa_all;
-                params.put("vrnoa", vrnoa+"");
+                // int vrnoa=Integer.parseInt(editTextVrValue.getText().toString());
+                String vrnoa = MyApplication.vrnoa_all;
+                params.put("vrnoa", vrnoa + "");
                 if (vrnoa.equalsIgnoreCase("0")) {
 
 
@@ -726,13 +679,53 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
     }
 
 
+    public void foodTypeSpinner(final Spinner spinnerFtype, String[] fTypeArray, final int index) {
+
+        try {
+            SpinnerSelectValueAdapter adapter = new SpinnerSelectValueAdapter(ChiniotCartActivity.this, android.R.layout.simple_list_item_1);
+            adapter.addAll(fTypeArray);
+            adapter.add("Select Food Type");
+            spinnerFtype.setAdapter(adapter);
+            spinnerFtype.setSelection(adapter.getCount());
+
+            if (flagFtype) {
+
+                spinnerFtype.setSelection(index);
+                flagFtype = false;
+            }
+
+            spinnerFtype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view,
+                                           int position, long id) {
+                    // TODO Auto-generated method stub
+
+                    if (spinnerFtype.getSelectedItem() == "Select Food Type") {
+                        //Do nothing.
+                    } else {
+
+                        foodType_NAME = spinnerFtype.getSelectedItem().toString();
+                        flagFtype = true;
+                    }
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    // TODO Auto-generated method stub
+
+                }
+            });
+
+        } catch (Exception e) {
+            e.getMessage();
+        }
 
 
+    }
 
-    public  void getDataByVrnoa()
-    {
-
-
+    public void getDataByVrnoa() {
 
 
         progressDialog.show();
@@ -745,12 +738,12 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
 
                         progressDialog.dismiss();
 
-                       // Log.e("Respone",response);
+                        // Log.e("Respone",response);
 
                         if (response != null) {
 
 
-                           MyApplication.maxId_global=response;
+                            MyApplication.maxId_global = response;
 
                             editTextVrValue.setText(MyApplication.maxId_global);
 
@@ -767,7 +760,7 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
                 Toast.makeText(ChiniotCartActivity.this,
                         "something went wrong", Toast.LENGTH_SHORT).show();
             }
-        })  {
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
@@ -783,9 +776,7 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-
-    public  void getDataVrno()
-    {
+    public void getDataVrno() {
 
 
         progressDialog.show();
@@ -798,7 +789,7 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
 
                         progressDialog.dismiss();
 
-                      //  Log.e("Respone",response);
+                        //  Log.e("Respone",response);
 
                         if (response != null && !response.equalsIgnoreCase("false")) {
 
@@ -806,9 +797,7 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
                             parseFetchVrno(response);
 
 
-                        }
-                        else
-                        {
+                        } else {
 
                             Toast.makeText(ChiniotCartActivity.this,
                                     "No Data Found", Toast.LENGTH_SHORT).show();
@@ -825,7 +814,7 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
                 Toast.makeText(ChiniotCartActivity.this,
                         "something went wrong", Toast.LENGTH_SHORT).show();
             }
-        })  {
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
@@ -834,9 +823,7 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
                 try {
                     params.put("etype", "estimate");
                     params.put("vrnoa", editTextVrValue.getText().toString());
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
 
                 }
 
@@ -850,9 +837,7 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-
-    public  void deleteVrno()
-    {
+    public void deleteVrno() {
 
 
         progressDialog.show();
@@ -865,13 +850,9 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
 
                         progressDialog.dismiss();
 
-                       // Log.e("Respone",response);
+                        // Log.e("Respone",response);
 
                         if (response != null && !response.equalsIgnoreCase("false")) {
-
-
-
-
 
 
                             Toast.makeText(ChiniotCartActivity.this,
@@ -880,9 +861,7 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
                             resetData();
                             //  MyApplication.maxId_global=response;
 
-                        }
-                        else
-                        {
+                        } else {
 
                             Toast.makeText(ChiniotCartActivity.this,
                                     "No Data Found", Toast.LENGTH_SHORT).show();
@@ -899,7 +878,7 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
                 Toast.makeText(ChiniotCartActivity.this,
                         "something went wrong", Toast.LENGTH_SHORT).show();
             }
-        })  {
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
@@ -916,29 +895,23 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-
-
-
     private void parseFetchVrno(String response) {
-
-
 
 
         try {
 
 
-
             db.deleteCart();
             db.deleteExtraItemsCart();
-            MyApplication.totalAmount=0;
-            MyApplication.maxId_global="0";
+            MyApplication.totalAmount = 0;
+            MyApplication.maxId_global = "0";
 
-            MyApplication.percent="0";
-            MyApplication.tax="0";
-            MyApplication.noOfPersons="0";
+            MyApplication.percent = "0";
+            MyApplication.tax = "0";
+            MyApplication.noOfPersons = "0";
 
-            MyApplication.date="0";
-            MyApplication.orderDate="0";
+            MyApplication.date = "0";
+            MyApplication.orderDate = "0";
 
 
             editTextVrValue.setText("");
@@ -965,27 +938,26 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
 
 
                 String menu_id = jsonObject.getString("menu_id");
-                String vrnoa= jsonObject.getString("vrnoa");
-                String vrdate= jsonObject.getString("vrdate1");
-                String order_date= jsonObject.getString("order_date1");
-                String per_head= jsonObject.getString("per_head");
-                String extraperhead= jsonObject.getString("extraperhead");
-                String discountpercent= jsonObject.getString("discountpercent");
-                String discount= jsonObject.getString("discount");
-                String tax= jsonObject.getString("tax");
-                String taxpercent= jsonObject.getString("taxpercent");
+                String vrnoa = jsonObject.getString("vrnoa");
+                String vrdate = jsonObject.getString("vrdate1");
+                String order_date = jsonObject.getString("order_date1");
+                String per_head = jsonObject.getString("per_head");
+                String extraperhead = jsonObject.getString("extraperhead");
+                String discountpercent = jsonObject.getString("discountpercent");
+                String discount = jsonObject.getString("discount");
+                String tax = jsonObject.getString("tax");
+                String taxpercent = jsonObject.getString("taxpercent");
 
-                String persons= jsonObject.getString("persons");
-                String item_id= jsonObject.getString("prid");
-                String item_des= jsonObject.getString("products_name");
-                String menu_name= jsonObject.getString("menu_name");
-                String type= jsonObject.getString("type");
-                String price= jsonObject.getString("rate");
+                String persons = jsonObject.getString("persons");
+                String item_id = jsonObject.getString("prid");
+                String item_des = jsonObject.getString("products_name");
+                String menu_name = jsonObject.getString("menu_name");
+                String type = jsonObject.getString("type");
+                String price = jsonObject.getString("rate");
 
-                MyApplication.vrnoa_all=vrnoa;
+                MyApplication.vrnoa_all = vrnoa;
 
-                if (i==0)
-                {
+                if (i == 0) {
 
 
                     editTextVrValue.setText(vrnoa);
@@ -1002,15 +974,12 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
                     editTextTax.setText(taxpercent);
                     editTextNoofPersons.setText(persons);
 
-                    MyApplication.date=vrdate;
-                    MyApplication.orderDate=order_date;
+                    MyApplication.date = vrdate;
+                    MyApplication.orderDate = order_date;
 
-                    MyApplication.percent=discountpercent;
-                    MyApplication.tax=taxpercent;
-                    MyApplication.noOfPersons=persons;
-
-
-
+                    MyApplication.percent = discountpercent;
+                    MyApplication.tax = taxpercent;
+                    MyApplication.noOfPersons = persons;
 
 
                 }
@@ -1018,13 +987,10 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
                 if (type.equalsIgnoreCase("menu")) {
 
 
-
                     db.isAddedToCartPackage(item_id, item_des, per_head, "", menu_name, vrnoa, menu_id);
 
-                }
-                else
-                {
-                    db.addedToExtraItems(item_id, item_des, price,"true");
+                } else {
+                    db.addedToExtraItems(item_id, item_des, price, "true");
 
 
                 }
@@ -1040,8 +1006,6 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
 //            editTextNoofPersons.setText(  MyApplication.noOfPersons);
 
 
-
-
             summaryStarter();
 
 
@@ -1053,37 +1017,27 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-
-
-
-    public  void  summaryStarter()
+    public void summaryStarter()
 
 
     {
 
 
-
         cartDataList = db.getCartVales();
-        if (cartDataList!=null)
-        {
-            MyCartAdapter adapter=new MyCartAdapter(ChiniotCartActivity.this,cartDataList);
+        if (cartDataList != null) {
+            MyCartAdapter adapter = new MyCartAdapter(ChiniotCartActivity.this, cartDataList);
 
             rvPackageCart.setAdapter(adapter);
         }
 
 
-
-
-
-
         float extraAmount = 0;
-        listExtraItems= db.getExtraItemsCartVales();
+        listExtraItems = db.getExtraItemsCartVales();
         for (int i = 0; i < listExtraItems.size(); i++) {
 
-            try{
+            try {
                 extraAmount += Float.parseFloat(listExtraItems.get(i).getItemRate());
-            }catch (Exception e)
-            {
+            } catch (Exception e) {
                 e.getMessage();
             }
 
@@ -1109,11 +1063,9 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
 
             // sometimes its  not showb value on edittext thats why i  store this value on global alue then set it on edittext
 
-            String  percent=editTextDiscountPercent.getText().toString();
-            String  tax=taxValueTextView.getText().toString();
-            String  noOfPersons=editTextNoofPersons.getText().toString();
-
-
+            String percent = editTextDiscountPercent.getText().toString();
+            String tax = taxValueTextView.getText().toString();
+            String noOfPersons = editTextNoofPersons.getText().toString();
 
 
             finalAmountCalculator();
@@ -1123,10 +1075,7 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-
-
     public void textchangerPercentDiscount() {
-
 
 
         editTextDiscountPercent.addTextChangedListener(new TextWatcher() {
@@ -1149,10 +1098,8 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
                 if (editTextDiscountPercent.hasFocus()) {
                     editTextDiscountValue.setText("");
                     finalAmountCalculator();
-                }
-                else
-                {
-                    Log.d("Percent","false");
+                } else {
+                    Log.d("Percent", "false");
                 }
 
 
@@ -1172,8 +1119,6 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
             public void afterTextChanged(Editable s) {
 
 
-
-
             }
 
             @Override
@@ -1187,10 +1132,7 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
                                       int before, int count) {
 
 
-
-
-                if (editTextDiscountValue.hasFocus())
-                {
+                if (editTextDiscountValue.hasFocus()) {
 
                     editTextDiscountPercent.setText("");
 
@@ -1205,8 +1147,7 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
                         discountPercent = discountValue * 100 / TotalAmount;
 
 
-                         String afterFormate = String.format("%.3f", discountPercent);
-
+                        String afterFormate = String.format("%.3f", discountPercent);
 
 
                         editTextDiscountPercent.setText(afterFormate);
@@ -1215,47 +1156,33 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
                     }
 
 
-
-
-
                     float discAmount = validaterInteger(editTextDiscountValue.getText().toString());
                     float taxAmount = validaterInteger(taxValueTextView.getText().toString());
                     float noOfPersons = validaterInteger(editTextNoofPersons.getText().toString());
 
-                    MyApplication.noOfPersons=editTextNoofPersons.getText().toString();
-                   // MyApplication.discount=editTextDiscountValue.getText().toString();
-                    MyApplication.percent=editTextDiscountPercent.getText().toString();
+                    MyApplication.noOfPersons = editTextNoofPersons.getText().toString();
+                    // MyApplication.discount=editTextDiscountValue.getText().toString();
+                    MyApplication.percent = editTextDiscountPercent.getText().toString();
 
 
-                    float sum = TotalAmount - discAmount + taxAmount ;
+                    float sum = TotalAmount - discAmount + taxAmount;
 
                     totalValueTextView.setText(Math.round(sum) + "");
 
 
-                    if (noOfPersons==0)
-                    {
+                    if (noOfPersons == 0) {
                         netAmountValueTextView.setText(Math.round(sum) + "");
 
-                    }
-                    else
-                    {
-                        float sumWithPersons = sum*noOfPersons ;
+                    } else {
+                        float sumWithPersons = sum * noOfPersons;
                         netAmountValueTextView.setText(Math.round(sumWithPersons) + "");
                     }
 
+                } else {
+
+
+                    //  Log.d("DiscountValue","false");
                 }
-                else
-                {
-
-
-
-
-                  //  Log.d("DiscountValue","false");
-                }
-
-
-
-
 
 
             }
@@ -1265,10 +1192,7 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-
     public void textchangerTaxPercent() {
-
-
 
 
         editTextTax.addTextChangedListener(new TextWatcher() {
@@ -1296,10 +1220,7 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-
     public void textchangerNoOfPersons() {
-
-
 
 
         editTextNoofPersons.addTextChangedListener(new TextWatcher() {
@@ -1327,49 +1248,43 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-
-    public float percentCalculator(float perecnt)    {
+    public float percentCalculator(float perecnt) {
         TotalAmount = MyApplication.totalAmount;
         float res = (TotalAmount / 100) * perecnt;
         return res;
     }
 
-    public    void finalAmountCalculator() {
-        try
-        {
+    public void finalAmountCalculator() {
+        try {
 
             TotalAmount = MyApplication.totalAmount;
 
 
-            MyApplication.percent=editTextDiscountPercent.getText().toString();
+            MyApplication.percent = editTextDiscountPercent.getText().toString();
 
 
-                float discountPercent = validaterInteger(editTextDiscountPercent.getText().toString());
+            float discountPercent = validaterInteger(editTextDiscountPercent.getText().toString());
 
-                if (discountPercent != 0) {
-                    float discountedRupess = 0;
-                    discountedRupess = percentCalculator(discountPercent);
-                    editTextDiscountValue.setText(Math.round(discountedRupess) + "");
-                } else {
-                    editTextDiscountValue.setText("");
-                }
-
-
-
-            MyApplication.tax=editTextTax.getText().toString();
-
-            float taxPercent = validaterInteger(editTextTax.getText().toString());
-
-            if (taxPercent!= 0) {
-                float taxRupess = 0;
-                taxRupess = percentCalculator(taxPercent);
-                taxValueTextView.setText(Math.round(taxRupess)+ "");
-            }else {
-                taxValueTextView.setText("0");
+            if (discountPercent != 0) {
+                float discountedRupess = 0;
+                discountedRupess = percentCalculator(discountPercent);
+                editTextDiscountValue.setText(Math.round(discountedRupess) + "");
+            } else {
+                editTextDiscountValue.setText("");
             }
 
 
+            MyApplication.tax = editTextTax.getText().toString();
 
+            float taxPercent = validaterInteger(editTextTax.getText().toString());
+
+            if (taxPercent != 0) {
+                float taxRupess = 0;
+                taxRupess = percentCalculator(taxPercent);
+                taxValueTextView.setText(Math.round(taxRupess) + "");
+            } else {
+                taxValueTextView.setText("0");
+            }
 
 
             float discAmount = validaterInteger(editTextDiscountValue.getText().toString());
@@ -1377,79 +1292,62 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
             float noOfPersons = validaterInteger(editTextNoofPersons.getText().toString());
 
 
-            MyApplication.noOfPersons=editTextNoofPersons.getText().toString();
+            MyApplication.noOfPersons = editTextNoofPersons.getText().toString();
 
 
-
-            float sum = TotalAmount - discAmount + taxAmount ;
+            float sum = TotalAmount - discAmount + taxAmount;
 
             totalValueTextView.setText(Math.round(sum) + "");
 
 
-            if (noOfPersons==0)
-            {
+            if (noOfPersons == 0) {
                 netAmountValueTextView.setText(Math.round(sum) + "");
 
-            }
-            else
-            {
-                float sumWithPersons = sum*noOfPersons ;
+            } else {
+                float sumWithPersons = sum * noOfPersons;
                 netAmountValueTextView.setText(Math.round(sumWithPersons) + "");
             }
 
-        }
-        catch ( Exception ex)
-        {
-          //  Log.d("Exception",ex.getMessage() );
+        } catch (Exception ex) {
+            //  Log.d("Exception",ex.getMessage() );
         }
 
     }
 
 
+    public float validaterInteger(String val) {
+        float result = 0;
 
-
-    public  float  validaterInteger(String  val)
-    {  float   result=0;
-
-        try
-        {
-            if (val.length()!=0)
-            {
-                result=Float.parseFloat(val);
+        try {
+            if (val.length() != 0) {
+                result = Float.parseFloat(val);
 
 
             }
-        }
-        catch (Exception ex)
-        {
-            return  0;
+        } catch (Exception ex) {
+            return 0;
 
         }
-        return  result;
+        return result;
     }
 
-    public  void dialogItems( ArrayList<ExtraDetailCartModel> extraItemsArrayList)
-    {
+    public void dialogItems(ArrayList<ExtraDetailCartModel> extraItemsArrayList) {
         // custom dialog
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
         LayoutInflater inflater = this.getLayoutInflater();
 
-        View dialogView= inflater.inflate(R.layout.row_alert_extra_items, null);
+        View dialogView = inflater.inflate(R.layout.row_alert_extra_items, null);
         dialogBuilder.setView(dialogView);
 
-        for (int i=0; i<extraItemsArrayList.size(); i++)
-        {
+        for (int i = 0; i < extraItemsArrayList.size(); i++) {
 
             extraItemsArrayList.get(i).getItemName();
 
-            TextView  name = (TextView)dialogView.findViewById(R.id.tvEngName);
-            TextView  price = (TextView)dialogView.findViewById(R.id.rate);
-            Button addedToCart = (Button)dialogView.findViewById(R.id.added);
+            TextView name = (TextView) dialogView.findViewById(R.id.tvEngName);
+            TextView price = (TextView) dialogView.findViewById(R.id.rate);
+            Button addedToCart = (Button) dialogView.findViewById(R.id.added);
         }
-
-
-
 
 
 //        addedToCart.setOnClickListener(new View.OnClickListener() {
@@ -1462,26 +1360,17 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
 //        });
 
 
-
-
         dialogBuilder.create().show();
     }
 
 
-
-
-    public  void DateSetter()
-    {
-
+    public void DateSetter() {
 
 
         cal = Calendar.getInstance();
         day = cal.get(Calendar.DAY_OF_MONTH);
         month = cal.get(Calendar.MONTH);
         year = cal.get(Calendar.YEAR);
-
-
-
 
 
         int hour = cal.get(Calendar.HOUR);
@@ -1491,14 +1380,12 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
         // String timeMInt=hour+":"+mint;
 
 
+        // String userDate=day + "/" + (month+1) + "/" + year;
 
-       // String userDate=day + "/" + (month+1) + "/" + year;
-
-        String userDate=year + "-" + (month+1) + "-" + day;
+        String userDate = year + "-" + (month + 1) + "-" + day;
 
         dateValueTextView.setText(userDate);
         orderDateValueTextView.setText(userDate);
-
 
 
         imageViewDate.setOnClickListener(new View.OnClickListener() {
@@ -1523,17 +1410,15 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
         });
 
 
-
     }
 
 
-    public void DateDialogMianDate(){
+    public void DateDialogMianDate() {
 
-        DatePickerDialog.OnDateSetListener listener=new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
 
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
-            {
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
                 //int hour = cal.get(Calendar.HOUR);
                 // int mint = cal.get(Calendar.MINUTE);
@@ -1542,45 +1427,43 @@ public class ChiniotCartActivity extends AppCompatActivity implements View.OnCli
                 //String timeMInt=hour+":"+mint;
                 //String userDate=dayOfMonth + "/" + (monthOfYear+1) + "/" + year;
 
-                String userDate=year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
+                String userDate = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
                 dateValueTextView.setText(userDate);
 
 
+            }
+        };
 
-            }};
-
-        DatePickerDialog dpDialog=new DatePickerDialog(ChiniotCartActivity.this, listener, year, month, day);
+        DatePickerDialog dpDialog = new DatePickerDialog(ChiniotCartActivity.this, listener, year, month, day);
         dpDialog.show();
 
     }
 
-    public void DateDialogOrderDate(){
+    public void DateDialogOrderDate() {
 
-        DatePickerDialog.OnDateSetListener listener=new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
 
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
-            {
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
                 //int hour = cal.get(Calendar.HOUR);
                 // int mint = cal.get(Calendar.MINUTE);
                 //  int amPM = cal.get(Calendar.AM_PM);
 
                 //String timeMInt=hour+":"+mint;
-              //  String userDate=dayOfMonth + "/" + (monthOfYear+1) + "/" + year;
-                String userDate=year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
+                //  String userDate=dayOfMonth + "/" + (monthOfYear+1) + "/" + year;
+                String userDate = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
 
                 orderDateValueTextView.setText(userDate);
 
 
+            }
+        };
 
-            }};
-
-        DatePickerDialog dpDialog=new DatePickerDialog(ChiniotCartActivity.this, listener, year, month, day);
+        DatePickerDialog dpDialog = new DatePickerDialog(ChiniotCartActivity.this, listener, year, month, day);
         dpDialog.show();
 
     }
-
 
 
 }

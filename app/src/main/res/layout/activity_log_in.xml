@@ -35,7 +35,7 @@
                 android:layout_margin="@dimen/dp5"
                 android:background="@drawable/user_pass_bg"
                 android:hint="@string/user_name"
-
+android:text="sadam"
                 android:inputType="text"
                 android:padding="@dimen/dp10"
                 android:textSize="@dimen/sp14" />
@@ -54,6 +54,7 @@
                 android:background="@drawable/user_pass_bg"
                 android:hint="@string/password"
                 android:inputType="textPassword"
+                android:text="miansiraj123"
                 android:padding="@dimen/dp10"
                 android:textSize="@dimen/sp14" />
         </android.support.design.widget.TextInputLayout>

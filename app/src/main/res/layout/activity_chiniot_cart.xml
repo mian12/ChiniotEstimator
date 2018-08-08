@@ -72,10 +72,11 @@
 
                         <EditText
                             android:id="@+id/editTextVrValue"
-                            android:layout_marginLeft="20dp"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="0dp"
+                            android:layout_marginLeft="20dp"
                             android:layout_toEndOf="@+id/vrTextView"
                             android:ems="3"
                             android:imeOptions="actionDone"
@@ -215,7 +216,37 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp"
 
+                android:layout_weight="2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="25dp"
+                    android:layout_weight="4">
+
+                        <Spinner
+                            android:id="@+id/spinnerFoodType"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="6">
+                </LinearLayout>
+
+
+
+            </LinearLayout>
 
 
 
@@ -629,6 +660,32 @@
         </LinearLayout>
     </ScrollView>
     <!-- Summery Remaining KotMain end here  -->
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight=".5"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editTextComments"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textMultiLine"
+            android:hint="Comments here"
+            android:text="" />
+
+
+    </LinearLayout>
+
+    </ScrollView>
+
+
 
 
     <LinearLayout
