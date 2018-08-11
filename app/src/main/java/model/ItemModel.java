@@ -12,6 +12,14 @@ public class ItemModel {
     private String date;
     private String name;
     private String urdu_name;
+
+
+
+    private  String per_head_rate;
+
+
+
+    private  String product_name;
     private String uom;
     private String labour;
     private String pay_mode;
@@ -40,6 +48,22 @@ public class ItemModel {
     private int isAddedToCart;
     private double itemCartQty;
 
+
+    public String getProduct_name() {
+        return product_name;
+    }
+
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
+    }
+
+    public String getPer_head_rate() {
+        return per_head_rate;
+    }
+
+    public void setPer_head_rate(String per_head_rate) {
+        this.per_head_rate = per_head_rate;
+    }
 
     public int getProduct_id() {
         return product_id;

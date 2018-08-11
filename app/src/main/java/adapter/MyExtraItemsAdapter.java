@@ -92,14 +92,6 @@ public class MyExtraItemsAdapter extends RecyclerView.Adapter<MyExtraItemsAdapte
                     holder.addedToCartButton.setText("Remove from cart");
                 }
 
-
-
-
-
-
-                 //  holder.addedToCartButton.setText("Added To Cart");
-                   // dataList.get(position).setItemAdded("false");
-              //  }
             }
         });
 

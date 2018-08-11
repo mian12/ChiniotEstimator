@@ -7,41 +7,35 @@
     tools:context="com.alnehal.chiniotestimator.ChiniotPackage.ChiniotExtraItemsActivity">
 
 
+    <!--<android.support.v7.widget.SearchView-->
+    <!--android:id="@+id/searchView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--app:iconifiedByDefault="false"-->
+    <!--app:layout_constraintHorizontal_bias="0.0"-->
+    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--app:layout_constraintRight_toRightOf="parent"-->
+    <!--app:queryHint="Search by Name here"-->
+    <!--tools:ignore="MissingConstraints"-->
+    <!--tools:layout_editor_absoluteY="5dp"></android.support.v7.widget.SearchView>-->
 
-    <android.support.v7.widget.SearchView
-        android:id="@+id/searchView"
+
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/rvExtraItems"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:padding="@dimen/dp5"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/searchView"-->
+    <!--tools:ignore="MissingConstraints"-->
+    <!--tools:layout_editor_absoluteX="85dp" />-->
+
+
+    <ExpandableListView
+        android:id="@+id/exp_list"
+        android:groupIndicator="@null"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:iconifiedByDefault="false"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:queryHint="Search by Name here"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="5dp"></android.support.v7.widget.SearchView>
-
-
-    <!--<ListView-->
-        <!--android:id="@+id/rvExtraItems"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:padding="@dimen/dp5"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/searchView"-->
-        <!--tools:ignore="MissingConstraints"-->
-        <!--tools:layout_editor_absoluteX="85dp"-->
-        <!--&gt;-->
-    <!--</ListView>-->
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvExtraItems"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:padding="@dimen/dp5"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="85dp" />
+        android:layout_height="fill_parent"></ExpandableListView>
 
 
 </android.support.constraint.ConstraintLayout>
