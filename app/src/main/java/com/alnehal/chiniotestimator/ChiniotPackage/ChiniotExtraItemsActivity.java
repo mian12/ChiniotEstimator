@@ -180,6 +180,9 @@ public class ChiniotExtraItemsActivity extends AppCompatActivity {
                                     {
                                         Child child=new Child();
                                         child.setName(itemArrayList.get(i).getProduct_name());
+                                        child.setCatid(itemArrayList.get(i).getCatid()+"");
+                                        child.setPer_head_rate(itemArrayList.get(i).getPer_head_rate());
+                                        child.setProduct_id(itemArrayList.get(i).getProduct_id()+"");
 
                                         childArrayList.add(child);
 

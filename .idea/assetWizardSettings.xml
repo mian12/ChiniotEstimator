@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/E:/android%20studio3.1/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_expand_more_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/E:/android%20studio3.1/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_expand_less_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -29,7 +29,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="990000" />
-                            <entry key="outputName" value="ic_expand_more_black_24dp" />
+                            <entry key="outputName" value="ic_expand_less_black_24dp" />
                             <entry key="sourceFile" value="C:\Users\Mian Shahbaz Idrees" />
                           </map>
                         </option>

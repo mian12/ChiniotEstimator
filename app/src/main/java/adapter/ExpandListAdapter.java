@@ -5,12 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alnehal.chiniotestimator.R;
 
 import java.util.ArrayList;
 
+import DB.SQLiteDatabaseHelper;
 import model.Child;
 import model.Group;
 
@@ -18,10 +21,12 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private ArrayList<Group> groups;
+    public SQLiteDatabaseHelper db;
 
 
     public ExpandListAdapter(Context context, ArrayList<Group> groups) {
         this.context = context;
+        db = new SQLiteDatabaseHelper(context);
         this.groups = groups;
     }
 
@@ -48,9 +53,55 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
         }
 
 
-        TextView tv =convertView.findViewById(R.id.child_name);
+        TextView name =convertView.findViewById(R.id.child_name);
+        TextView rate =convertView.findViewById(R.id.child_rate);
+        final Button addedToCartButton=convertView.findViewById(R.id.added);
 
-        tv.setText(child.getName().toString());
+
+
+
+        final String itemName = child.getName();
+        final String itemId = child.getProduct_id();
+        final String price =child.getPer_head_rate();
+
+
+
+        name.setText(child.getName());
+
+
+        int  flag=db.itemExitOrNot(itemId);
+        if (flag==1)
+        {
+          addedToCartButton.setText("Remove from cart");
+        }
+        else
+        {
+           addedToCartButton.setText("Add To Cart");
+        }
+
+        rate.setText(price);
+
+        addedToCartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+                int  flag=db.itemExitOrNot(itemId);
+                if (flag==1)
+                {
+                    db.deleteExtraItem(itemId);
+                   addedToCartButton.setText("Add To Cart");
+                }
+                else
+                {
+                    db.addedToExtraItems(itemId, itemName, price,"true");
+                    addedToCartButton.setText("Remove from cart");
+                }
+
+            }
+        });
+
 
         return convertView;
     }
@@ -87,14 +138,16 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
         }
         TextView tv =convertView.findViewById(R.id.group_name);
         tv.setText(group.getName());
+       ImageView indicator=convertView.findViewById(R.id.indicator);
 
 
-//        if ( getChildrenCount( groupPosition ) == 0 ) {
-//            indicator.setVisibility( View.INVISIBLE );
-//        } else {
-//            indicator.setVisibility( View.VISIBLE );
-//            indicator.setImageResource( isExpanded ? R.drawable.list_group_expanded : R.drawable.list_group_closed );
-//        }
+        if ( getChildrenCount( groupPosition ) == 0 ) {
+            indicator.setVisibility( View.INVISIBLE );
+        } else {
+            indicator.setVisibility( View.VISIBLE );
+            indicator.setImageResource( isExpanded ? R.drawable.ic_expand_less_black_24dp : R.drawable.ic_expand_more_black_24dp );
+        }
+
         return convertView;
     }
 
